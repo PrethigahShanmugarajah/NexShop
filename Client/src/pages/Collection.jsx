@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { assets, products } from "../assets/assets";
 import { ChevronRight } from "lucide-react";
 import Title from "../components/Title";
-import {} from "lucide-react";
 import ProductItem from "../components/ProductItem";
 import { ShopContext } from "../context/ShopContext";
 
