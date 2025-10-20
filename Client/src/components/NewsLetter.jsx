@@ -29,7 +29,7 @@ const NewsLetter = () => {
 
         <button
           type="submit"
-          className="bg-primary text-white text-xs px-10 py-4 uppercase"
+          className="bg-primary hover:bg-primary-dull text-white text-xs px-10 py-4 uppercase cursor-pointer"
         >
           Subscribe
         </button>

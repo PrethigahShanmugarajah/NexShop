@@ -68,8 +68,10 @@ import star_dull_icon from "./star_dull_icon.png";
 import star_icon from "./star_icon.png";
 import support_img from "./support_img.png";
 import menu_icon from "./menu_icon.png";
-import about_img from "./about_img.png";
-import contact_img from "./contact_img.png";
+// import about_img from "./about_img.png";
+import About from "./About.jpg";
+// import contact_img from "./contact_img.png";
+import Contact from "./Contact.jpg";
 import razorpay_logo from "./razorpay_logo.png";
 import stripe_logo from "./stripe_logo.png";
 import cross_icon from "./cross_icon.png";
@@ -89,8 +91,10 @@ export const assets = {
   bin_icon,
   support_img,
   menu_icon,
-  about_img,
-  contact_img,
+  // about_img,
+  About,
+  // contact_img,
+  Contact,
   razorpay_logo,
   stripe_logo,
   cross_icon,
