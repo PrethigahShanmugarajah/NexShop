@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import ToastProvider from "./components/ToastProvider";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
+export const currency = import.meta.env.VITE_CURRENCY;
 
 const App = () => {
   const [token, setToken] = useState(

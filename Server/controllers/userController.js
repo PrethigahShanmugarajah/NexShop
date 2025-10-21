@@ -138,7 +138,7 @@ export const adminLogin = async (req, res) => {
       return res.json({
         success: true,
         message: "Admin login successful",
-        data: { token },
+        token,
       });
     } else {
       return res.json({ success: false, message: "Invalid credentials" });

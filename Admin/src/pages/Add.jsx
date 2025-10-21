@@ -14,14 +14,18 @@ const Add = ({ token }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [subCategory, setSubCategory] = useState("");
+  const [category, setCategory] = useState("Men");
+  const [subCategory, setSubCategory] = useState("Topwear");
   const [bestseller, setBestSeller] = useState("");
   const [sizes, setSizes] = useState([]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
+      if (!image1) {
+        return notify.warning("Please upload at least one image.");
+      }
+
       const formData = new FormData();
 
       formData.append("name", name);
@@ -37,6 +41,7 @@ const Add = ({ token }) => {
       image3 && formData.append("image3", image3);
       image4 && formData.append("image4", image4);
 
+      // console.log("Token being sent:", token);
       const response = await axios.post(
         backendUrl + "/api/product/add",
         formData,
@@ -44,8 +49,25 @@ const Add = ({ token }) => {
       );
 
       console.log(response.data);
-      notify.success(message);
-    } catch (error) {}
+
+      if (response.data.success) {
+        notify.success(response.data.message);
+        setName("");
+        setDescription("");
+        setImage1(false);
+        setImage2(false);
+        setImage3(false);
+        setImage4(false);
+        setPrice("");
+        setSizes("");
+        setBestSeller("");
+      } else {
+        notify.error(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      notify.error(error.response?.data?.message || "An error occurred");
+    }
   };
 
   return (

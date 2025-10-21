@@ -17,6 +17,7 @@ const Login = ({ setToken }) => {
       });
 
       if (response.data.success) {
+        // setToken(response.data.data.token);
         setToken(response.data.token);
         notify.success(response.data.message);
       } else {
@@ -32,7 +33,7 @@ const Login = ({ setToken }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center w-full border-primary">
-      <div className="bg-white shadow-md rounded-lg px-8 py-6 max-w-md border-1 border-primary ">
+      <div className="bg-white shadow-md rounded-lg px-8 py-6 max-w-md border border-primary ">
         <Title text1={"Admin"} text2={"Panel"} />
         <form onSubmit={onSubmitHandler}>
           <div className="mb-3 min-w-72">
