@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { products } from "../assets/assets";
+import React, { useContext, useEffect, useState } from "react";
+import { ShopContext } from "../context/ShopContext"; // make sure path is correct
+// import { products } from "../assets/assets";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
-// const { products } = useContext(ShopContext);
 
 const RelatedProducts = ({ category, subCategory }) => {
-  // const { products } = useContext(ShopContext);
+  const { products } = useContext(ShopContext);
   const [related, setRelated] = useState([]);
 
   useEffect(() => {
@@ -40,9 +40,9 @@ const RelatedProducts = ({ category, subCategory }) => {
             {" "}
             <ProductItem
               key={index}
-              id={item._id}
+              id={item.id}
               name={item.name}
-              image={item.image}
+              images={item.images}
               price={item.price}
             />
           </div>

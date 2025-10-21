@@ -1,17 +1,16 @@
 // Client/src/pages/Collection
 import React, { useContext, useEffect, useState } from "react";
-import { assets, products } from "../assets/assets";
+import {
+  assets,
+  // products
+} from "../assets/assets";
 import { ChevronRight } from "lucide-react";
 import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
 import { ShopContext } from "../context/ShopContext";
 
 const Collection = () => {
-  const {
-    // products,
-    search,
-    showSearch,
-  } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
@@ -78,7 +77,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, search, showSearch]);
+  }, [category, subCategory, search, showSearch, products]);
 
   useEffect(() => {
     sortProduct();
@@ -229,8 +228,8 @@ const Collection = () => {
           {filterProducts.map((item, index) => (
             <ProductItem
               key={index}
-              id={item._id}
-              image={item.image}
+              id={item.id}
+              images={item.images}
               name={item.name}
               price={item.price}
             />

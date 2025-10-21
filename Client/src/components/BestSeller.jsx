@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { products } from "../assets/assets";
+import React, { useContext, useEffect, useState } from "react";
+// import { products } from "../assets/assets";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
-// import { ShopContext } from "../context/ShopContext";
+import { ShopContext } from "../context/ShopContext";
 
 const BestSeller = () => {
-  // const { products } = useContext(ShopContext);
+  const { products } = useContext(ShopContext);
   const [bestSeller, SetBestSeller] = useState([]);
 
   useEffect(() => {
     const bestProduct = products.filter((item) => item.bestseller);
     SetBestSeller(bestProduct.slice(0, 5));
-  }, []);
+  }, [products]);
 
   return (
     <div className="my-10">
@@ -29,9 +29,9 @@ const BestSeller = () => {
         {bestSeller.map((item, index) => (
           <ProductItem
             key={index}
-            id={item._id}
+            id={item.id}
             name={item.name}
-            image={item.image}
+            images={item.images}
             price={item.price}
           />
         ))}

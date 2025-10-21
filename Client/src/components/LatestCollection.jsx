@@ -2,16 +2,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
-import { products } from "../assets/assets";
-// import { ShopContext } from "../context/ShopContext";
+// import { products } from "../assets/assets";
+import { ShopContext } from "../context/ShopContext";
 
 const LatestCollection = () => {
-  // const { products } = useContext(ShopContext);
+  const { products } = useContext(ShopContext);
   const [latestProducts, setLatestProducts] = useState([]);
 
   useEffect(() => {
     setLatestProducts(products.slice(0, 10));
-  }, []);
+  }, [products]);
 
   // console.log(products);
 
@@ -31,8 +31,8 @@ const LatestCollection = () => {
         {latestProducts.map((item, index) => (
           <ProductItem
             key={index}
-            id={item._id}
-            image={item.image}
+            id={item.id}
+            images={item.images}
             name={item.name}
             price={item.price}
           />

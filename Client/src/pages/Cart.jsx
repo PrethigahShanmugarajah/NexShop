@@ -1,18 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
-import { assets, products } from "../assets/assets";
+import {
+  assets,
+  // products
+} from "../assets/assets";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
 import { Trash2 } from "lucide-react";
 
 const Cart = () => {
-  const {
-    // products,
-    currency,
-    cartItems,
-    updateQuanity,
-    navigate,
-  } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuanity, navigate } =
+    useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {

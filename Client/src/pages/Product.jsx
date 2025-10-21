@@ -1,30 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { assets, products } from "../assets/assets";
+import {
+  assets,
+  //  products
+} from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
 import { Star } from "lucide-react";
 import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
   const { productId } = useParams();
-  const {
-    // products,
-    currency,
-    addToCart,
-  } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState([]);
   const [size, setSize] = useState("");
 
   const fetchProductData = async () => {
-    products.map((item) => {
-      if (item._id === productId) {
-        setProductData(item);
-        setImage(item.image[0]);
-        // console.log(item);
-        return null;
-      }
-    });
+    const product = products.find((item) => item.id === parseInt(productId));
+    // console.log("Selected product:", product);
+    if (product) {
+      setProductData(product);
+      setImage(product.images[0]);
+    }
   };
 
   useEffect(() => {
@@ -39,15 +36,16 @@ const Product = () => {
         {/* -------- PRODUCT IMAGES -------- */}
         <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full">
-            {productData.image.map((item, index) => (
-              <img
-                onClick={() => setImage(item)}
-                src={item}
-                key={index}
-                alt=""
-                className="w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer"
-              />
-            ))}
+            {productData.images &&
+              productData.images.map((item, index) => (
+                <img
+                  onClick={() => setImage(item)}
+                  src={item}
+                  key={index}
+                  alt=""
+                  className="w-[24%] sm:w-full sm:mb-3 flex shrink-0 cursor-pointer"
+                />
+              ))}
           </div>
 
           <div className="w-full sm:w-[80%]">
@@ -99,7 +97,7 @@ const Product = () => {
           </div>
 
           <button
-            onClick={() => addToCart(productData._id, size)}
+            onClick={() => addToCart(productData.id, size)}
             className="bg-primary hover:bg-primary-dull text-white px-8 py-3 text-sm active:bg-light cursor-pointer uppercase"
           >
             Add to cart
