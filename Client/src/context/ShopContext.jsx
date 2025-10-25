@@ -14,6 +14,7 @@ const ShopContextProvider = (props) => {
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
+  const [token, setToken] = useState([]);
   const navigate = useNavigate();
 
   const addToCart = async (itemId, size) => {
@@ -65,12 +66,14 @@ const ShopContextProvider = (props) => {
     let totalAmount = 0;
 
     for (const items in cartItems) {
-      let itemInfo = products.find((product) => product._id === items);
+      let itemInfo = products.find((product) => product.id === parseInt(items));
+
+      if (!itemInfo) continue;
 
       for (const item in cartItems[items]) {
         try {
           if (cartItems[items][item] > 0) {
-            totalAmount += itemInfo.price * cartItems[items][item];
+            totalAmount += parseFloat(itemInfo.price) * cartItems[items][item];
           }
         } catch (error) {}
       }
@@ -125,6 +128,8 @@ const ShopContextProvider = (props) => {
     getDeliveryFee,
     navigate,
     backendUrl,
+    token,
+    setToken,
   };
 
   return (

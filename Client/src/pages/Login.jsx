@@ -71,22 +71,72 @@
 
 // export default Login;
 
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
+import { notify } from "../components/ToastProvider";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Sign Up");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { navigate, backendUrl, token, setToken } = useContext(ShopContext);
 
-  const onSubmitHandler = (event) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
-    alert(`${currentState} submitted successfully`);
+
+    try {
+      if (currentState === "Sign Up") {
+        const response = await axios.post(backendUrl + "/api/user/register", {
+          name,
+          email,
+          password,
+          confirmPassword,
+        });
+
+        if (response.data.success) {
+          setToken(response.data.token);
+          notify.success(response.data.message);
+          localStorage.setItem("token", response.data.token);
+          // navigate("/");
+        } else {
+          notify.error(response.data.message);
+        }
+      } else {
+        const response = await axios.post(backendUrl + "/api/user/login", {
+          email,
+          password,
+        });
+
+        if (response.data.success) {
+          setToken(response.data.token);
+          notify.success(response.data.message);
+          localStorage.setItem("token", response.data.token);
+          // navigate("/");
+        } else {
+          notify.error(response.data.message);
+        }
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const handleForgotPassword = () => {
-    alert("Redirect to Forgot Password page");
-  };
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, []);
+
+  // const handleForgotPassword = () => {
+  //   alert("Redirect to Forgot Password page");
+  // };
 
   const validatePassword = (event) => {
     const password = event.target.form.password.value;
@@ -110,6 +160,8 @@ const Login = () => {
 
       {currentState === "Login" ? null : (
         <input
+          onChange={(e) => setName(e.target.value)}
+          value={name}
           type="text"
           className="w-full px-3 py-2 border border-gray-800"
           placeholder="Name"
@@ -119,6 +171,8 @@ const Login = () => {
       )}
 
       <input
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
         type="email"
         className="w-full px-3 py-2 border border-gray-800"
         placeholder="Email"
@@ -128,6 +182,8 @@ const Login = () => {
 
       <div className="relative w-full">
         <input
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
           type={showPassword ? "text" : "password"}
           className="w-full px-3 py-2 border border-gray-800"
           placeholder="Password"
@@ -145,6 +201,8 @@ const Login = () => {
       {currentState !== "Login" && (
         <div className="relative w-full">
           <input
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmPassword}
             type={showConfirmPassword ? "text" : "password"}
             className="w-full px-3 py-2 border border-gray-800"
             placeholder="Confirm Password"
@@ -162,15 +220,6 @@ const Login = () => {
       )}
 
       <div className="w-full flex justify-between text-sm mt-[-8px]">
-        {currentState === "Login" && (
-          <p
-            onClick={handleForgotPassword}
-            className="cursor-pointer text-blue-600"
-          >
-            Forgot your password?
-          </p>
-        )}
-
         {currentState === "Login" ? (
           <p
             onClick={() => setCurrentState("Sign Up")}
@@ -184,6 +233,14 @@ const Login = () => {
             className="cursor-pointer"
           >
             Login Here
+          </p>
+        )}
+        {currentState === "Login" && (
+          <p
+            // onClick={handleForgotPassword}
+            className="cursor-pointer text-blue-600"
+          >
+            Forgot your password?
           </p>
         )}
       </div>

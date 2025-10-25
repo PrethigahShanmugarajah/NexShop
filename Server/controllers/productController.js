@@ -1,3 +1,4 @@
+// Server/controllers/productController.js
 import { v2 as cloudinary } from "cloudinary";
 import { connection } from "../config/db.js";
 

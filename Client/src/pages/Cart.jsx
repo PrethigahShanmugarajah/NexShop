@@ -19,7 +19,7 @@ const Cart = () => {
       for (const item in cartItems[items]) {
         if (cartItems[items][item] > 0) {
           tempData.push({
-            _id: items,
+            id: items,
             size: item,
             quantity: cartItems[items][item],
           });
@@ -39,8 +39,10 @@ const Cart = () => {
       <div>
         {cartData.map((item, index) => {
           const productData = products.find(
-            (product) => product._id === item._id
+            (product) => product.id === parseInt(item.id)
           );
+
+          if (!productData) return null;
 
           return (
             <div
@@ -49,7 +51,7 @@ const Cart = () => {
             >
               <div className="flex items-start gap-6">
                 <img
-                  src={productData.image[0]}
+                  src={productData.images[0]}
                   alt=""
                   className="w-16 sm:w-20"
                 />
@@ -75,7 +77,7 @@ const Cart = () => {
                 onChange={(e) =>
                   e.target.value === "" || e.target.value === "0"
                     ? null
-                    : updateQuanity(item._id, item.size, Number(e.target.value))
+                    : updateQuanity(item.id, item.size, Number(e.target.value))
                 }
                 type="number"
                 min={1}
@@ -85,7 +87,7 @@ const Cart = () => {
 
               {/* <img onClick={() => updateQuanity(item._id, item.size, 0)} src={assets.bin_icon} alt="Delete" className="w-4 mr-4 sm:w-5 cursor-pointer"/> */}
               <Trash2
-                onClick={() => updateQuanity(item._id, item.size, 0)}
+                onClick={() => updateQuanity(item.id, item.size, 0)}
                 className="w-5 h-5 mr-4 sm:w-6 sm:h-6 cursor-pointer text-red-500 hover:text-red-600 transition-colors"
               />
             </div>
