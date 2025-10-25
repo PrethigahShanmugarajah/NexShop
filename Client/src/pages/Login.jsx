@@ -78,7 +78,7 @@ import axios from "axios";
 import { notify } from "../components/ToastProvider";
 
 const Login = () => {
-  const [currentState, setCurrentState] = useState("Sign Up");
+  const [currentState, setCurrentState] = useState("Login");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { navigate, backendUrl, token, setToken } = useContext(ShopContext);
@@ -132,7 +132,7 @@ const Login = () => {
     if (token) {
       navigate("/");
     }
-  }, []);
+  }, [token]);
 
   // const handleForgotPassword = () => {
   //   alert("Redirect to Forgot Password page");
