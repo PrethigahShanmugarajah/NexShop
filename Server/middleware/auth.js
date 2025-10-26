@@ -4,6 +4,8 @@ import { connection } from "../config/db.js";
 const authUser = async (req, res, next) => {
   const { token } = req.headers;
 
+  console.log("[auth] incoming token header:", token);
+
   if (!token) {
     return res.json({
       success: false,
@@ -13,6 +15,8 @@ const authUser = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    console.log("[auth] token decoded:", decoded);
 
     const [rows] = await connection.execute(
       "SELECT id, name, email FROM users WHERE id = ?",

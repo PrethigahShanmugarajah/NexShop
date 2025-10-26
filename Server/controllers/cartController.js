@@ -3,7 +3,14 @@ import { connection as db } from "../config/db.js";
 /* ---------------- ADD PRODUCTS TO USER CART ---------------- */
 export const addToCart = async (req, res) => {
   try {
-    const { userId, itemId, size } = req.body;
+    const { itemId, size } = req.body;
+    // Prefer authenticated user id from middleware (authUser sets req.user),
+    // fallback to userId in body for backward-compatibility / tests
+    const userId = req.user && req.user.id ? req.user.id : req.body.userId;
+
+    console.log(
+      `[addToCart] request - userId=${userId}, itemId=${itemId}, size=${size}`
+    );
 
     const [rows] = await db.query("SELECT cartData FROM users WHERE id = ?", [
       userId,
@@ -33,12 +40,17 @@ export const addToCart = async (req, res) => {
 
     const updatedCart = JSON.stringify(cartData);
 
-    await db.query("UPDATE users SET cartData = ? WHERE id = ?", [
-      updatedCart,
-      userId,
-    ]);
+    const [updateResult] = await db.query(
+      "UPDATE users SET cartData = ? WHERE id = ?",
+      [updatedCart, userId]
+    );
 
-    res.json({ success: true, message: "Added to Cart" });
+    // Helpful logs for debugging: show the updated cart JSON and DB response
+    console.log("[addToCart] updatedCart:", updatedCart);
+    console.log("[addToCart] db.updateResult:", updateResult);
+
+    // Return updated cart so frontend can verify and refresh UI without extra fetch
+    res.json({ success: true, message: "Added to Cart", cartData });
   } catch (error) {
     console.error("Add Product error:", error.message);
     res.json({ success: false, message: error.message });
