@@ -17,10 +17,10 @@ const Navbar = () => {
   } = useContext(ShopContext);
 
   const logout = () => {
+    navigate("/login");
     localStorage.removeItem("token");
     setToken("");
     setCartItems({});
-    navigate("/login");
   };
 
   return (

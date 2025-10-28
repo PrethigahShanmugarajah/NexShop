@@ -106,10 +106,10 @@ const PlaceOrder = () => {
           <div className="flex gap-3 flex-col lg:flex-row">
             <div
               onClick={() => setMethod("stripe")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
+              className="flex items-center gap-3 border border-borderColor p-2 px-3 cursor-pointer"
             >
               <p
-                className={`min-w-3.5 h-3.5 border rounded-full ${
+                className={`min-w-3.5 h-3.5 border border-borderColor rounded-full ${
                   method === "stripe" ? "bg-primary" : ""
                 }`}
               ></p>
@@ -119,10 +119,10 @@ const PlaceOrder = () => {
 
             <div
               onClick={() => setMethod("razorpay")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
+              className="flex items-center gap-3 border border-borderColor p-2 px-3 cursor-pointer"
             >
               <p
-                className={`min-w-3.5 h-3.5 border rounded-full ${
+                className={`min-w-3.5 h-3.5 border border-borderColor rounded-full ${
                   method === "razorpay" ? "bg-primary" : ""
                 }`}
               ></p>
@@ -132,10 +132,10 @@ const PlaceOrder = () => {
 
             <div
               onClick={() => setMethod("cod")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
+              className="flex items-center gap-3 border border-borderColor p-2 px-3 cursor-pointer"
             >
               <p
-                className={`min-w-3.5 h-3.5 border rounded-full ${
+                className={`min-w-3.5 h-3.5 border border-borderColor rounded-full ${
                   method === "cod" ? "bg-primary" : ""
                 }`}
               ></p>

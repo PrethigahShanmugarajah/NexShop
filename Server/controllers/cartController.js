@@ -1,11 +1,10 @@
+// Server/controllers/cartController.js
 import { connection as db } from "../config/db.js";
 
 /* ---------------- ADD PRODUCTS TO USER CART ---------------- */
 export const addToCart = async (req, res) => {
   try {
     const { itemId, size } = req.body;
-    // Prefer authenticated user id from middleware (authUser sets req.user),
-    // fallback to userId in body for backward-compatibility / tests
     const userId = req.user && req.user.id ? req.user.id : req.body.userId;
 
     console.log(
@@ -45,11 +44,9 @@ export const addToCart = async (req, res) => {
       [updatedCart, userId]
     );
 
-    // Helpful logs for debugging: show the updated cart JSON and DB response
     console.log("[addToCart] updatedCart:", updatedCart);
     console.log("[addToCart] db.updateResult:", updateResult);
 
-    // Return updated cart so frontend can verify and refresh UI without extra fetch
     res.json({ success: true, message: "Added to Cart", cartData });
   } catch (error) {
     console.error("Add Product error:", error.message);
@@ -60,7 +57,12 @@ export const addToCart = async (req, res) => {
 /* ---------------- UPDATE USER CART ---------------- */
 export const updateCart = async (req, res) => {
   try {
-    const { userId, itemId, size, quantity } = req.body;
+    const { itemId, size, quantity } = req.body;
+    const userId = req.user && req.user.id ? req.user.id : req.body.userId;
+
+    console.log(
+      `[updateCart] request - userId=${userId}, itemId=${itemId}, size=${size}, quantity=${quantity}`
+    );
 
     const [rows] = await db.query("SELECT cartData FROM users WHERE id = ?", [
       userId,
@@ -96,6 +98,7 @@ export const updateCart = async (req, res) => {
       updatedCart,
       userId,
     ]);
+    console.log("[updateCart] updatedCart:", updatedCart);
 
     res.json({ success: true, message: "Cart Updated Successfully", cartData });
   } catch (error) {
@@ -107,7 +110,9 @@ export const updateCart = async (req, res) => {
 /* ---------------- GET USER CART DATA ---------------- */
 export const getUserCart = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.user && req.user.id ? req.user.id : req.body.userId;
+
+    console.log(`[getUserCart] request - userId=${userId}`);
 
     const [rows] = await db.query("SELECT cartData FROM users WHERE id = ?", [
       userId,
