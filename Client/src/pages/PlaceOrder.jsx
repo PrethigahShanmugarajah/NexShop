@@ -3,10 +3,91 @@ import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
 import { assets } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
+import { notify } from "../components/ToastProvider";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
-  const { navigate } = useContext(ShopContext);
+  const {
+    products,
+    cartItems,
+    setCartItems,
+    getCartAmount,
+    getDeliveryFee,
+    navigate,
+    backendUrl,
+    token,
+  } = useContext(ShopContext);
+
+  const [formdata, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    addressLine1: "",
+    addressLine2: "",
+    addressLine3: "",
+    postalCode: "",
+    district: "",
+    phone: "",
+  });
+
+  const onChangeHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    setFormData((data) => ({ ...data, [name]: value }));
+  };
+
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+
+    try {
+      let orderItems = [];
+
+      console.log("[PlaceOrder] cartItems:", cartItems);
+      console.log("[PlaceOrder] products:", products);
+
+      for (const items in cartItems) {
+        for (const item in cartItems[items]) {
+          if (!(cartItems[items][item] > 0)) continue;
+
+          const itemInfo = structuredClone(
+            products.find((product) => product.id === parseInt(items))
+          );
+          if (itemInfo) {
+            itemInfo.size = item;
+            itemInfo.quantity = cartItems[items][item];
+            orderItems.push(itemInfo);
+          }
+        }
+      }
+
+      let orderData = {
+        address: formdata,
+        items: orderItems,
+        amount: getCartAmount() + getDeliveryFee(),
+      };
+
+      switch (method) {
+        /* -------- API CALL FOR COD -------- */
+        case "cod":
+          const response = await axios.post(
+            backendUrl + "/api/order/place",
+            orderData,
+            { headers: { token } }
+          );
+
+          if (response.data.success) {
+            setCartItems({});
+            navigate("/orders");
+          } else {
+            notify.error(response.data.message);
+          }
+      }
+
+      console.log(orderItems);
+    } catch (error) {}
+  };
 
   // const bankAccounts = [
   //   { name: "Bank of Ceylon", account: "123-456-7890" },
@@ -17,7 +98,10 @@ const PlaceOrder = () => {
   // ];
 
   return (
-    <div className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t">
+    <form
+      onSubmit={onSubmitHandler}
+      className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t"
+    >
       {/* ---------------- LEFT ---------------- */}
       <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
         <div className="text-xl sm:text-2xl my-3">
@@ -26,69 +110,96 @@ const PlaceOrder = () => {
 
         <div className="flex gap-3">
           <input
+            onChange={onChangeHandler}
+            name="firstName"
+            value={formdata.firstName}
             type="text"
             placeholder="First Name"
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition"
+            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
             required
           />
 
           <input
+            onChange={onChangeHandler}
+            name="lastName"
+            value={formdata.lastName}
             type="text"
             placeholder="Last Name"
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition"
+            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
             required
           />
         </div>
 
         <input
+          onChange={onChangeHandler}
+          name="email"
+          value={formdata.email}
           type="email"
           placeholder="Email Address"
-          className="border border-gray-300 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition"
+          className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
           required
         />
 
         <input
+          onChange={onChangeHandler}
+          name="addressLine1"
+          value={formdata.addressLine1}
           type="text"
           placeholder="Address Line 1"
-          className="border border-gray-300 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition"
+          className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
           required
         />
 
         <div className="flex gap-3">
           <input
+            onChange={onChangeHandler}
+            name="addressLine2"
+            value={formdata.addressLine2}
             type="text"
             placeholder="Address Line 2"
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition"
+            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
             required
           />
 
           <input
+            onChange={onChangeHandler}
+            name="addressLine3"
+            value={formdata.addressLine3}
             type="text"
             placeholder="Address Line 3"
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition"
+            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
           />
         </div>
 
         <div className="flex gap-3">
           <input
+            onChange={onChangeHandler}
+            name="postalCode"
+            value={formdata.postalCode}
             type="number"
             placeholder="Postal Code"
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition"
+            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
             required
           />
 
           <input
+            onChange={onChangeHandler}
+            name="district"
+            value={formdata.district}
             type="text"
             placeholder="District"
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition"
+            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
             required
           />
         </div>
 
         <input
+          onChange={onChangeHandler}
+          name="phone"
+          value={formdata.phone}
           type="number"
           placeholder="Phone Number"
-          className="border border-gray-300 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition"
+          className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
           required
         />
       </div>
@@ -197,7 +308,8 @@ const PlaceOrder = () => {
 
           <div className="w-full text-end mt-8">
             <button
-              onClick={() => navigate("orders")}
+              type="submit"
+              // onClick={() => navigate("orders")}
               className="bg-primary hover:bg-primary-dull text-white px-16 py-3 text-sm cursor-pointer"
             >
               Place Order
@@ -205,7 +317,7 @@ const PlaceOrder = () => {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
