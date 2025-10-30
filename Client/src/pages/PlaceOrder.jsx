@@ -44,8 +44,8 @@ const PlaceOrder = () => {
     try {
       let orderItems = [];
 
-      console.log("[PlaceOrder] cartItems:", cartItems);
-      console.log("[PlaceOrder] products:", products);
+      // console.log("[PlaceOrder] cartItems:", cartItems);
+      // console.log("[PlaceOrder] products:", products);
 
       for (const items in cartItems) {
         for (const item in cartItems[items]) {
@@ -84,8 +84,8 @@ const PlaceOrder = () => {
             notify.error(response.data.message);
           }
       }
-
       console.log(orderItems);
+      notify.error(error.message);
     } catch (error) {}
   };
 

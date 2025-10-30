@@ -1,4 +1,5 @@
 import { connection } from "../config/db.js";
+import jwt from "jsonwebtoken";
 
 /* ---------------- PLACING ORDERS USING COD METHOD ---------------- */
 export const placeOrder = async (req, res) => {
@@ -32,7 +33,8 @@ export const placeOrder = async (req, res) => {
       status: "Order Placed",
       paymentMethod: "COD",
       payment: false,
-      date: new Date().toISOString(),
+      // date: new Date().toISOString(),
+      date: new Date(),
     };
 
     const [result] = await connection.execute(
@@ -91,6 +93,37 @@ export const placeOrder = async (req, res) => {
     res.json({
       success: false,
       message: `Place Order error: ${error.message}`,
+    });
+  }
+};
+
+/* ---------------- USER ORDERS DATA FOR USER ---------------- */
+export const userOrders = async (req, res) => {
+  try {
+    const token = req.headers.token;
+    if (!token)
+      return res.json({ success: false, message: "No token provided" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    const [orders] = await connection.execute(
+      "SELECT * FROM orders WHERE userId = ? ORDER BY id DESC",
+      [userId]
+    );
+
+    const parsedOrders = orders.map((order) => ({
+      ...order,
+      items: JSON.parse(order.items),
+      address: JSON.parse(order.address),
+    }));
+
+    res.json({ success: true, orders: parsedOrders });
+  } catch (error) {
+    console.error("User Orders error:", error.message);
+    res.json({
+      success: false,
+      message: `User Orders error: ${error.message}`,
     });
   }
 };
@@ -154,13 +187,21 @@ export const allOrders = async (req, res) => {
 };
 
 /* ---------------- USER ORDERS DATA FOR USER ---------------- */
-export const userOrders = async (req, res) => {
-  try {
-  } catch (error) {
-    console.error("Add Product error:", error.message);
-    res.json({ success: false, message: error.message });
-  }
-};
+// export const userOrders = async (req, res) => {
+//   try {
+//     const { userId } = req.body;
+
+//     const orders = await orderModel.find({ userId });
+
+//     res.json({ success: true, orders });
+//   } catch (error) {
+//     console.error("Place Order error:", error.message);
+//     res.json({
+//       success: false,
+//       message: `Place Order error: ${error.message}`,
+//     });
+//   }
+// };
 
 /* ---------------- UPDATE ORDER STATUS FROM ADMIN PANEL ---------------- */
 export const updateStatus = async (req, res) => {
