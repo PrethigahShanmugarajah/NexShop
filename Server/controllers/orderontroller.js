@@ -1,5 +1,5 @@
-Server / controllers / orderontroller.js;
-import orderModel from "../models/orderModel";
+// Server / controllers / orderontroller.js;
+import orderModel from "../models/orderModel.js";
 
 /* ---------------- PLACING ORDERS USING COD METHOD ---------------- */
 export const placeOrder = async (req, res) => {

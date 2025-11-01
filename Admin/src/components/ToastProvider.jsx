@@ -1,11 +1,18 @@
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { X } from "lucide-react";
+import {
+  X,
+  CircleCheck,
+  AlertCircle,
+  AlertTriangle,
+  HelpCircle,
+} from "lucide-react";
 
 export const notify = {
   success: (msg) =>
     toast.success(msg, {
+      icon: <CircleCheck color="currentColor" size={20} />,
       style: {
         background: "#22c55e",
         color: "#ffffff",
@@ -14,10 +21,10 @@ export const notify = {
         fontWeight: 500,
         fontSize: "16px",
       },
-      icon: false,
     }),
   error: (msg) =>
     toast.error(msg, {
+      icon: <AlertCircle color="currentColor" size={20} />,
       style: {
         background: "#dc2626",
         color: "#ffffff",
@@ -26,10 +33,11 @@ export const notify = {
         fontWeight: 500,
         fontSize: "16px",
       },
-      icon: false,
+      // icon: false,
     }),
   warning: (msg) =>
     toast.warn(msg, {
+      icon: <AlertTriangle color="currentColor" size={20} />,
       style: {
         background: "#f97316",
         color: "#ffffff",
@@ -38,10 +46,11 @@ export const notify = {
         fontWeight: 500,
         fontSize: "16px",
       },
-      icon: false,
+      // icon: false,
     }),
   info: (msg) =>
     toast.info(msg, {
+      icon: <HelpCircle color="currentColor" size={20} />,
       style: {
         background: "#3b82f6",
         color: "#ffffff",
@@ -50,7 +59,7 @@ export const notify = {
         fontWeight: 500,
         fontSize: "16px",
       },
-      icon: false,
+      // icon: false,
     }),
 };
 

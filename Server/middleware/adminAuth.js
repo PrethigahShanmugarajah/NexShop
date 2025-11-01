@@ -3,26 +3,48 @@ import jwt from "jsonwebtoken";
 
 const adminAuth = async (req, res, next) => {
   try {
-    const { token } = req.headers;
+    const token = req.headers.token;
+
     if (!token) {
       return res.json({
         success: false,
-        message: "Not Authorized Login Again",
+        message: "Not authorized. Please login again",
       });
     }
 
     const token_decode = jwt.verify(token, process.env.JWT_SECRET);
 
-    if (token_decode !== process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD) {
+    if (
+      token_decode.email !== process.env.ADMIN_EMAIL ||
+      token_decode.role !== "admin"
+    ) {
       return res.json({
         success: false,
-        message: "Not Authorized Login Again",
+        message: "Not authorized. Admin access only",
       });
     }
+
     next();
   } catch (error) {
-    console.error(error.message);
-    res.json({ success: false, message: error.message });
+    // console.log(error);
+    // res.json({ success: false, message: error.message });
+
+    console.error("Admin Auth error:", error.message);
+
+    // res.json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    // res.json({
+    //   success: false,
+    //   message: `Admin Auth error:: ${error.message}`,
+    // });
+
+    res.json({
+      success: false,
+      "message(Admin Auth error:)": error.message,
+    });
   }
 };
 

@@ -4,6 +4,7 @@ import { ImagePlus } from "lucide-react";
 import axios from "axios";
 import { backendUrl } from "../App";
 import { notify } from "../components/ToastProvider";
+import Title from "../components/Title";
 
 const Add = ({ token }) => {
   const [image1, setImage1] = useState(false);
@@ -76,6 +77,8 @@ const Add = ({ token }) => {
       className="flex flex-col w-full items-start gap-3"
     >
       <div>
+        <Title className="mb-2" text1={"Add"} text2={"Products"} />
+
         <p className="mb-2">Upload Image</p>
 
         <div className="flex gap-2 ">

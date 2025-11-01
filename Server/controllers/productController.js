@@ -1,5 +1,6 @@
 // Server/controllers/productController.js
 import { v2 as cloudinary } from "cloudinary";
+import productModel from "../models/productModel.js";
 
 /* ---------------- ADD PRODUCT ---------------- */
 export const addProduct = async (req, res) => {
@@ -9,15 +10,15 @@ export const addProduct = async (req, res) => {
       description,
       price,
       category,
-      subCaregory,
+      subCategory,
       sizes,
       bestSeller,
     } = req.body;
 
     const image1 = req.files.image1 && req.files.image1[0];
-    const image2 = req.files.image2 && req.files.image1[0];
-    const image3 = req.files.image3 && req.files.image1[0];
-    const image4 = req.files.image4 && req.files.image1[0];
+    const image2 = req.files.image2 && req.files.image2[0];
+    const image3 = req.files.image3 && req.files.image3[0];
+    const image4 = req.files.image4 && req.files.image4[0];
 
     const images = [image1, image2, image3, image4].filter(
       (item) => item !== undefined
@@ -33,27 +34,70 @@ export const addProduct = async (req, res) => {
       })
     );
 
+    // console.log(
+    //   name,
+    //   description,
+    //   price,
+    //   category,
+    //   subCategory,
+    //   sizes,
+    //   bestSeller
+    // );
+
+    // console.log(images);
+
     const productData = {
       name,
       description,
       price: Number(price),
       category,
-      subCaregory,
+      subCategory,
       sizes: JSON.parse(sizes),
       bestSeller: bestSeller === "true" ? true : false,
       image: imagesUrl,
       date: Date.now(),
     };
 
-    console.log(productData);
+    // console.log(productData);
 
     const product = new productModel(productData);
     await product.save();
 
-    res.json({ success: true, message: "Product Added", productData });
+    const productResponse = {
+      id: product._id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      category: product.category,
+      subCategory: product.subCategory,
+      sizes: product.sizes,
+      bestSeller: product.bestSeller,
+      image: product.image,
+      date: product.date,
+    };
+
+    res.json({
+      success: true,
+      message: "Product Added",
+      product: productResponse,
+    });
   } catch (error) {
     console.error("Add Product error:", error.message);
-    res.json({ success: false, message: error.message });
+
+    // res.json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    // res.json({
+    //   success: false,
+    //   message: `Add Product error: ${error.message}`,
+    // });
+
+    res.json({
+      success: false,
+      "message(Add Product error)": error.message,
+    });
   }
 };
 
@@ -61,32 +105,156 @@ export const addProduct = async (req, res) => {
 export const listProducts = async (req, res) => {
   try {
     const products = await productModel.find({});
-    res.json({ success: true, products });
+
+    // Calculate total counts
+    const totalProducts = products.length;
+    const totalByCategory = {};
+    const totalBySubCategory = {};
+
+    products.forEach((product) => {
+      totalByCategory[product.category] =
+        (totalByCategory[product.category] || 0) + 1;
+      totalBySubCategory[product.subCategory] =
+        (totalBySubCategory[product.subCategory] || 0) + 1;
+    });
+
+    const productsResponse = products.map((product) => ({
+      id: product._id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      category: product.category,
+      subCategory: product.subCategory,
+      sizes: product.sizes,
+      bestSeller: product.bestSeller,
+      image: product.image,
+      date: product.date,
+      createdAt: product.createdAt,
+      updatedAt: product.updatedAt,
+    }));
+
+    res.json({
+      success: true,
+      totalProducts,
+      totalByCategory,
+      totalBySubCategory,
+      products: productsResponse,
+    });
   } catch (error) {
-    console.error("Add Product error:", error.message);
-    res.json({ success: false, message: error.message });
+    console.error("List Products error:", error.message);
+
+    // res.json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    // res.json({
+    //   success: false,
+    //   message: `List Product error: ${error.message}`,
+    // });
+
+    res.json({
+      success: false,
+      "message(List Product error)": error.message,
+    });
   }
 };
 
 /* ---------------- REMOVE PRODUCT ---------------- */
 export const removeProducts = async (req, res) => {
   try {
+    const product = await productModel.findById(req.body.id);
+
+    if (!product) {
+      return res.json({ success: false, message: "Product not found" });
+    }
+
+    // Prepare response object for the removed product
+    const productResponse = {
+      id: product._id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      category: product.category,
+      subCategory: product.subCategory,
+      sizes: product.sizes,
+      bestSeller: product.bestSeller,
+      image: product.image,
+      date: product.date,
+      createdAt: product.createdAt,
+      updatedAt: product.updatedAt,
+    };
+
     await productModel.findByIdAndDelete(req.body.id);
-    res.json({ success: true, message: "Product successfully removed" });
+
+    res.json({
+      success: true,
+      message: "Product successfully removed",
+      removedProduct: productResponse,
+    });
   } catch (error) {
-    console.error("Add Product error:", error.message);
-    res.json({ success: false, message: error.message });
+    console.error("Remove Product error:", error.message);
+
+    // res.json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    // res.json({
+    //   success: false,
+    //   message: `Remove Product error: ${error.message}`,
+    // });
+
+    res.json({
+      success: false,
+      "message(Remove Product error)": error.message,
+    });
   }
 };
 
-/* ---------------- SINGLE PRODUCT IMFO[ID] ---------------- */
+/* ---------------- SINGLE PRODUCT INFO [ID] ---------------- */
 export const singleProducts = async (req, res) => {
-  const { productId } = req.body;
-  const product = await productModel.findById(productId);
-  res.json({ success: true, product });
   try {
+    const { productId } = req.body;
+
+    const product = await productModel.findById(productId);
+
+    if (!product) {
+      return res.json({ success: false, message: "Product not found" });
+    }
+
+    const productResponse = {
+      id: product._id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      category: product.category,
+      subCategory: product.subCategory,
+      sizes: product.sizes,
+      bestSeller: product.bestSeller,
+      image: product.image,
+      date: product.date,
+      createdAt: product.createdAt,
+      updatedAt: product.updatedAt,
+    };
+
+    res.json({ success: true, product: productResponse });
   } catch (error) {
-    console.error("Add Product error:", error.message);
-    res.json({ success: false, message: error.message });
+    console.error("Single Product error:", error.message);
+
+    // res.json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    // res.json({
+    //   success: false,
+    //   message: `Single Product error: ${error.message}`,
+    // });
+
+    res.json({
+      success: false,
+      "message(Single Product errorr)": error.message,
+    });
   }
 };
