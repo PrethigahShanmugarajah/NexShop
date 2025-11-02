@@ -24,8 +24,22 @@ export const placeOrder = async (req, res) => {
 
     res.json({ success: true, message: "Order Placed" });
   } catch (error) {
-    console.error("Placing Orders Using Cod error:", error.message);
-    res.json({ success: false, message: error.message });
+    console.error("Placing Orders Using Cod Method error:", error.message);
+
+    // res.json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    // res.json({
+    //   success: false,
+    //   message: `Placing Orders Using Cod Method error: ${error.message}`,
+    // });
+
+    res.json({
+      success: false,
+      "message(Placing Orders Using Cod Method error)": error.message,
+    });
   }
 };
 
@@ -33,8 +47,22 @@ export const placeOrder = async (req, res) => {
 export const placeOrderStripe = async (req, res) => {
   try {
   } catch (error) {
-    // console.error("Add Product error:", error.message);
-    // res.json({ success: false, message: error.message });
+    console.error("Placing Orders Using Stripe Method error:", error.message);
+
+    // res.json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    // res.json({
+    //   success: false,
+    //   message: `Placing Orders Using Stripe Method error: ${error.message}`,
+    // });
+
+    res.json({
+      success: false,
+      "message(Placing Orders Using Stripe Method error)": error.message,
+    });
   }
 };
 
@@ -42,8 +70,22 @@ export const placeOrderStripe = async (req, res) => {
 export const placeOrderRazorpay = async (req, res) => {
   try {
   } catch (error) {
-    // console.error("Add Product error:", error.message);
-    // res.json({ success: false, message: error.message });
+    console.error("Placing Orders Using Razorpay Method error:", error.message);
+
+    // res.json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    // res.json({
+    //   success: false,
+    //   message: `Placing Orders Using Razorpay Method error: ${error.message}`,
+    // });
+
+    res.json({
+      success: false,
+      "message(Placing Orders Using Razorpay Method error)": error.message,
+    });
   }
 };
 
@@ -51,8 +93,22 @@ export const placeOrderRazorpay = async (req, res) => {
 export const allOrders = async (req, res) => {
   try {
   } catch (error) {
-    // console.error("Add Product error:", error.message);
-    // res.json({ success: false, message: error.message });
+    console.error("All Orders Data for Admin Panel Error:", error.message);
+
+    // res.json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    // res.json({
+    //   success: false,
+    //   message: `All Orders Data for Admin Panel Error: ${error.message}`,
+    // });
+
+    res.json({
+      success: false,
+      "message(All Orders Data for Admin Panel Error)": error.message,
+    });
   }
 };
 
@@ -65,10 +121,21 @@ export const userOrders = async (req, res) => {
 
     res.json({ success: true, orders });
   } catch (error) {
-    console.error("Place Order error:", error.message);
+    console.error("User Orders Data for User Error:", error.message);
+
+    // res.json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    // res.json({
+    //   success: false,
+    //   message: `User Orders Data for User Error: ${error.message}`,
+    // });
+
     res.json({
       success: false,
-      message: `Place Order error: ${error.message}`,
+      "message(User Orders Data for User Error)": error.message,
     });
   }
 };
@@ -77,7 +144,21 @@ export const userOrders = async (req, res) => {
 export const updateStatus = async (req, res) => {
   try {
   } catch (error) {
-    // console.error("Add Product error:", error.message);
-    // res.json({ success: false, message: error.message });
+    console.error("Update Order Satus From Admin Panel Error:", error.message);
+
+    // res.json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    // res.json({
+    //   success: false,
+    //   message: `Update Order Satus From Admin Panel Error: ${error.message}`,
+    // });
+
+    res.json({
+      success: false,
+      "message(Update Order Satus From Admin Panel Error)": error.message,
+    });
   }
 };

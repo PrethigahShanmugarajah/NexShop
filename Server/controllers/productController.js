@@ -141,7 +141,7 @@ export const listProducts = async (req, res) => {
       products: productsResponse,
     });
   } catch (error) {
-    console.error("List Products error:", error.message);
+    console.error("List Product error:", error.message);
 
     // res.json({
     //   success: false,
@@ -169,7 +169,6 @@ export const removeProducts = async (req, res) => {
       return res.json({ success: false, message: "Product not found" });
     }
 
-    // Prepare response object for the removed product
     const productResponse = {
       id: product._id,
       name: product.name,
@@ -193,7 +192,7 @@ export const removeProducts = async (req, res) => {
       removedProduct: productResponse,
     });
   } catch (error) {
-    console.error("Remove Product error:", error.message);
+    console.error("Product Remove Error:", error.message);
 
     // res.json({
     //   success: false,
@@ -202,12 +201,12 @@ export const removeProducts = async (req, res) => {
 
     // res.json({
     //   success: false,
-    //   message: `Remove Product error: ${error.message}`,
+    //   message: `Product Remove Error: ${error.message}`,
     // });
 
     res.json({
       success: false,
-      "message(Remove Product error)": error.message,
+      "message(Product Remove Error)": error.message,
     });
   }
 };
@@ -240,7 +239,7 @@ export const singleProducts = async (req, res) => {
 
     res.json({ success: true, product: productResponse });
   } catch (error) {
-    console.error("Single Product error:", error.message);
+    console.error("Single Product Info(Id) Error:", error.message);
 
     // res.json({
     //   success: false,
@@ -249,12 +248,12 @@ export const singleProducts = async (req, res) => {
 
     // res.json({
     //   success: false,
-    //   message: `Single Product error: ${error.message}`,
+    //   message: `Single Product Info(Id) Error: ${error.message}`,
     // });
 
     res.json({
       success: false,
-      "message(Single Product errorr)": error.message,
+      "message(Single Product Info(Id) Error)": error.message,
     });
   }
 };
