@@ -24,7 +24,7 @@ export const notify = {
     }),
   error: (msg) =>
     toast.error(msg, {
-      icon: <AlertOctagon rcle color="currentColor" size={20} />,
+      icon: <AlertOctagon color="currentColor" size={20} />,
       style: {
         background: "#dc2626",
         color: "#ffffff",
