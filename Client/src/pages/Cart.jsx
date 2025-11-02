@@ -104,7 +104,7 @@ const Cart = () => {
           <div className="w-full text-end">
             <button
               onClick={() => navigate("/place-order")}
-              className="bg-primary hover:bg-primary-dull text-white text-sm my-8 px-8 py-3 cursor-pointer uppercase"
+              className="bg-primary hover:bg-primary-dull text-white text-sm my-8 px-8 py-3 cursor-pointer uppercase hover:rounded-full"
             >
               Proceed to checkout
             </button>

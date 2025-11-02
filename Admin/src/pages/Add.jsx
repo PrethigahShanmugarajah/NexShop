@@ -174,7 +174,7 @@ const Add = ({ token }) => {
           value={name}
           type="text"
           placeholder="Product Name"
-          className="w-full max-w-[500px] px-3 py-2 border border-gray-300  rounded-md outline-none focus:border-borderColor transition  text-black placeholder-gray-300"
+          className="w-full max-w-[500px] px-3 py-2 border border-gray-200  rounded-md outline-none focus:border-borderColor transition  text-black placeholder-gray-300"
           required
         />
       </div>
@@ -187,7 +187,7 @@ const Add = ({ token }) => {
           type="text"
           rows={5}
           placeholder="Product Description"
-          className="w-full max-w-[500px] px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
+          className="w-full max-w-[500px] px-3 py-2 border border-gray-200 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
           required
         />
       </div>
@@ -197,7 +197,7 @@ const Add = ({ token }) => {
           <p className="mb-2 text-black">Product Category</p>
           <select
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
+            className="w-full px-3 py-2 border border-gray-200 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
             required
           >
             <option value="Men">Men</option>
@@ -210,7 +210,7 @@ const Add = ({ token }) => {
           <p className="mb-2 text-black">Sub Category</p>
           <select
             onChange={(e) => setSubCategory(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
+            className="w-full px-3 py-2 border border-gray-200 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
           >
             <option value="Topwear">Topwear</option>
             <option value="Bottomwear">Bottomwear</option>
@@ -225,7 +225,7 @@ const Add = ({ token }) => {
             value={price}
             type="number"
             placeholder="LKR 100"
-            className="w-full px-3 py-2 sm:w-[120px] border border-gray-300 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
+            className="w-full px-3 py-2 sm:w-[120px] border border-gray-200 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
             required
           />
         </div>

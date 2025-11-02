@@ -2,9 +2,55 @@
 import orderModel from "../models/orderModel.js";
 
 /* ---------------- PLACING ORDERS USING COD METHOD ---------------- */
+// export const placeOrder = async (req, res) => {
+//   try {
+//     const { userId, items, amount, address } = req.body;
+
+//     const orderData = {
+//       userId,
+//       items,
+//       address,
+//       amount,
+//       paymentMethod: "COD",
+//       payment: false,
+//       date: Date.now(),
+//     };
+
+//     const newOrder = new orderModel(orderData);
+
+//     await newOrder.save();
+
+//     await userModel.findByIdAndUpdate(userId, { cartData: {} });
+
+//     res.json({ success: true, message: "Order Placed" });
+//   } catch (error) {
+//     console.error("Placing Orders Using Cod Method error:", error.message);
+
+//     // res.json({
+//     //   success: false,
+//     //   message: error.message,
+//     // });
+
+//     // res.json({
+//     //   success: false,
+//     //   message: `Placing Orders Using Cod Method error: ${error.message}`,
+//     // });
+
+//     res.json({
+//       success: false,
+//       "message(Placing Orders Using Cod Method error)": error.message,
+//     });
+//   }
+// };
+
+/* ---------------- PLACING ORDERS USING COD METHOD ---------------- */
 export const placeOrder = async (req, res) => {
   try {
     const { userId, items, amount, address } = req.body;
+
+    if (!items || items.length === 0) {
+      return res.json({ success: false, message: "Cart is empty" });
+    }
 
     const orderData = {
       userId,
@@ -17,25 +63,40 @@ export const placeOrder = async (req, res) => {
     };
 
     const newOrder = new orderModel(orderData);
-
-    await newOrder.save();
+    const savedOrder = await newOrder.save();
 
     await userModel.findByIdAndUpdate(userId, { cartData: {} });
 
-    res.json({ success: true, message: "Order Placed" });
+    const orderResponse = {
+      id: savedOrder._id,
+      userId: savedOrder.userId,
+      items: savedOrder.items.map((item) => ({
+        id: item._id || item.id,
+        name: item.name,
+        size: item.size,
+        quantity: item.quantity,
+        price: item.price,
+        totalAmount: item.quantity * item.price,
+      })),
+      totalQuantity: savedOrder.items.reduce(
+        (acc, item) => acc + item.quantity,
+        0
+      ),
+      totalAmount: savedOrder.amount,
+      paymentMethod: savedOrder.paymentMethod,
+      paymentStatus: savedOrder.payment,
+      address: savedOrder.address,
+      createdAt: savedOrder.createdAt,
+      updatedAt: savedOrder.updatedAt,
+    };
+
+    res.json({
+      success: true,
+      message: "Order Placed Successfully",
+      order: orderResponse,
+    });
   } catch (error) {
     console.error("Placing Orders Using Cod Method error:", error.message);
-
-    // res.json({
-    //   success: false,
-    //   message: error.message,
-    // });
-
-    // res.json({
-    //   success: false,
-    //   message: `Placing Orders Using Cod Method error: ${error.message}`,
-    // });
-
     res.json({
       success: false,
       "message(Placing Orders Using Cod Method error)": error.message,

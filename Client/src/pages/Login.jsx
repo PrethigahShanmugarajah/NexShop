@@ -96,7 +96,7 @@ const Login = () => {
           onChange={(e) => setName(e.target.value)}
           value={name}
           type="text"
-          className="w-full px-3 py-2 border border-gray-800"
+          className="w-full px-3 py-2 border border-gray-200 focus:border-borderColor focus:outline-none placeholder:text-gray-300"
           placeholder="Name"
           name="name"
           required
@@ -107,7 +107,7 @@ const Login = () => {
         onChange={(e) => setEmail(e.target.value)}
         value={email}
         type="email"
-        className="w-full px-3 py-2 border border-gray-800"
+        className="w-full px-3 py-2 border border-gray-200 focus:border-borderColor focus:outline-none placeholder:text-gray-300"
         placeholder="Email"
         name="email"
         required
@@ -118,7 +118,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           type={showPassword ? "text" : "password"}
-          className="w-full px-3 py-2 border border-gray-800"
+          className="w-full px-3 py-2 border border-gray-200 focus:border-borderColor focus:outline-none placeholder:text-gray-300"
           placeholder="Password"
           name="password"
           required
@@ -127,7 +127,11 @@ const Login = () => {
           onClick={() => setShowPassword(!showPassword)}
           className="absolute right-3 top-2.5 cursor-pointer"
         >
-          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          {showPassword ? (
+            <EyeOff className="text-black" size={18} />
+          ) : (
+            <Eye className="text-black" size={18} />
+          )}
         </span>
       </div>
 
@@ -137,17 +141,22 @@ const Login = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             value={confirmPassword}
             type={showConfirmPassword ? "text" : "password"}
-            className="w-full px-3 py-2 border border-gray-800"
+            className="w-full px-3 py-2 border border-gray-200 focus:border-borderColor focus:outline-none placeholder:text-gray-300"
             placeholder="Confirm Password"
             name="confirmPassword"
             required
             onInput={validatePassword}
           />
+
           <span
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             className="absolute right-3 top-2.5 cursor-pointer"
           >
-            {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            {showConfirmPassword ? (
+              <EyeOff className="text-black" size={18} />
+            ) : (
+              <Eye className="text-black" size={18} />
+            )}
           </span>
         </div>
       )}
@@ -156,14 +165,14 @@ const Login = () => {
         {currentState === "Login" ? (
           <p
             onClick={() => setCurrentState("Sign Up")}
-            className="cursor-pointer"
+            className="cursor-pointer text-primary"
           >
             Create an account?
           </p>
         ) : (
           <p
             onClick={() => setCurrentState("Login")}
-            className="cursor-pointer"
+            className="cursor-pointer text-primary"
           >
             Login Here
           </p>
@@ -178,7 +187,7 @@ const Login = () => {
         )}
       </div>
 
-      <button className="bg-primary hover:bg-primary-dull text-white font-light px-8 py-2 mt-4 cursor-pointer rounded-full">
+      <button className="bg-primary hover:bg-primary-dull text-white font-light px-8 py-2 mt-4 cursor-pointer hover:rounded-full">
         {currentState === "Login" ? "Sign In" : "Sign Up"}
       </button>
     </form>

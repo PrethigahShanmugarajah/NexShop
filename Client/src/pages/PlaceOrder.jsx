@@ -115,7 +115,7 @@ const PlaceOrder = () => {
             value={formdata.firstName}
             type="text"
             placeholder="First Name"
-            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
+            className="border border-gray-200 focus:border-borderColor focus:outline-none rounded py-1.5 px-3.5 w-full outline-none transition placeholder:text-gray-300"
             required
           />
 
@@ -125,7 +125,7 @@ const PlaceOrder = () => {
             value={formdata.lastName}
             type="text"
             placeholder="Last Name"
-            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
+            className="border border-gray-200 focus:border-borderColor focus:outline-none rounded py-1.5 px-3.5 w-full outline-none  transition placeholder:text-gray-300"
             required
           />
         </div>
@@ -136,7 +136,7 @@ const PlaceOrder = () => {
           value={formdata.email}
           type="email"
           placeholder="Email Address"
-          className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
+          className="border border-gray-200 focus:border-borderColor focus:outline-none rounded py-1.5 px-3.5 w-full outline-none  transition placeholder:text-gray-300"
           required
         />
 
@@ -146,7 +146,7 @@ const PlaceOrder = () => {
           value={formdata.addressLine1}
           type="text"
           placeholder="Address Line 1"
-          className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
+          className="border border-gray-200 focus:border-borderColor focus:outline-none rounded py-1.5 px-3.5 w-full outline-none transition placeholder:text-gray-300"
           required
         />
 
@@ -157,7 +157,7 @@ const PlaceOrder = () => {
             value={formdata.addressLine2}
             type="text"
             placeholder="Address Line 2"
-            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
+            className="border border-gray-200 focus:border-borderColor focus:outline-none rounded py-1.5 px-3.5 w-full outline-none transition placeholder:text-gray-300"
             required
           />
 
@@ -167,7 +167,7 @@ const PlaceOrder = () => {
             value={formdata.addressLine3}
             type="text"
             placeholder="Address Line 3"
-            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
+            className="border border-gray-200 focus:border-borderColor focus:outline-nonerounded py-1.5 px-3.5 w-full outline-none  transition placeholder:text-gray-300"
           />
         </div>
 
@@ -178,7 +178,7 @@ const PlaceOrder = () => {
             value={formdata.postalCode}
             type="number"
             placeholder="Postal Code"
-            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
+            className="border border-gray-200 focus:border-borderColor focus:outline-none rounded py-1.5 px-3.5 w-full outline-none transition placeholder:text-gray-300"
             required
           />
 
@@ -188,7 +188,7 @@ const PlaceOrder = () => {
             value={formdata.district}
             type="text"
             placeholder="District"
-            className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
+            className="border border-gray-200 focus:border-borderColor focus:outline-none rounded py-1.5 px-3.5 w-full outline-none  transition placeholder:text-gray-300"
             required
           />
         </div>
@@ -199,7 +199,7 @@ const PlaceOrder = () => {
           value={formdata.phone}
           type="number"
           placeholder="Phone Number"
-          className="border border-gray-500 rounded py-1.5 px-3.5 w-full outline-none focus:border-borderColor transition placeholder:text-gray-300"
+          className="border border-gray-200 focus:border-borderColor focus:outline-none py-1.5 px-3.5 w-full outline-none transition placeholder:text-gray-300"
           required
         />
       </div>
@@ -310,7 +310,7 @@ const PlaceOrder = () => {
             <button
               type="submit"
               // onClick={() => navigate("orders")}
-              className="bg-primary hover:bg-primary-dull text-white px-16 py-3 text-sm cursor-pointer"
+              className="bg-primary hover:bg-primary-dull text-white px-16 py-3 text-sm cursor-pointer hover:rounded-full"
             >
               Place Order
             </button>
