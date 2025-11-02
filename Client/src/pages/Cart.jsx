@@ -41,7 +41,7 @@ const Cart = () => {
       <div>
         {cartData.map((item, index) => {
           const productData = products.find(
-            (product) => product.id === parseInt(item.id)
+            (product) => product.id === item.id
           );
 
           if (!productData) return null;
@@ -53,7 +53,7 @@ const Cart = () => {
             >
               <div className="flex items-start gap-6">
                 <img
-                  src={productData.images[0]}
+                  src={productData.image[0]}
                   alt=""
                   className="w-16 sm:w-20"
                 />

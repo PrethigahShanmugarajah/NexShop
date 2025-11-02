@@ -79,7 +79,7 @@ export const loginUser = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error("Login user error:", error.message);
+    console.error("User Login error:", error.message);
 
     // res.json({
     //   success: false,
@@ -88,12 +88,12 @@ export const loginUser = async (req, res) => {
 
     // res.json({
     //   success: false,
-    //   message: `Login user error: ${error.message}`,
+    //   message: `User Login error: ${error.message}`,
     // });
 
     res.json({
       success: false,
-      "message(Login user error)": error.message,
+      "message(User Login error)": error.message,
     });
   }
 };
@@ -173,11 +173,11 @@ export const registerUser = async (req, res) => {
     res.json({
       success: true,
       token,
-      message: "User Successfully Registered",
+      message: "Successfully Registered",
       user: userResponse,
     });
   } catch (error) {
-    console.error("Register user error:", error.message);
+    console.error("User Register error:", error.message);
 
     // res.json({
     //   success: false,
@@ -186,12 +186,12 @@ export const registerUser = async (req, res) => {
 
     // res.json({
     //   success: false,
-    //   message: `Register user error: ${error.message}`,
+    //   message: `User Register error: ${error.message}`,
     // });
 
     res.json({
       success: false,
-      "message(Register user error)": error.message,
+      "message(User Register error)": error.message,
     });
   }
 };
@@ -229,7 +229,7 @@ export const adminLogin = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error("Admin login error:", error.message);
+    console.error("Admin Login error:", error.message);
 
     // res.json({
     //   success: false,
@@ -238,12 +238,12 @@ export const adminLogin = async (req, res) => {
 
     // res.json({
     //   success: false,
-    //   message: `Admin login error: ${error.message}`,
+    //   message: `Admin Login error: ${error.message}`,
     // });
 
     res.json({
       success: false,
-      "message(Admin login error)": error.message,
+      "message(Admin Login error)": error.message,
     });
   }
 };

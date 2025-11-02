@@ -1,12 +1,12 @@
 import React from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast, Slide, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   X,
   CircleCheck,
-  AlertCircle,
+  AlertOctagon,
   AlertTriangle,
-  HelpCircle,
+  Info,
 } from "lucide-react";
 
 export const notify = {
@@ -24,7 +24,7 @@ export const notify = {
     }),
   error: (msg) =>
     toast.error(msg, {
-      icon: <AlertCircle color="currentColor" size={20} />,
+      icon: <AlertOctagon rcle color="currentColor" size={20} />,
       style: {
         background: "#dc2626",
         color: "#ffffff",
@@ -50,7 +50,7 @@ export const notify = {
     }),
   info: (msg) =>
     toast.info(msg, {
-      icon: <HelpCircle color="currentColor" size={20} />,
+      icon: <Info color="currentColor" size={20} />,
       style: {
         background: "#3b82f6",
         color: "#ffffff",
@@ -67,6 +67,8 @@ const ToastProvider = () => {
   return (
     <ToastContainer
       position="top-right"
+      // transition={Slide}
+      transition={Bounce}
       autoClose={2000}
       hideProgressBar={false}
       closeOnClick

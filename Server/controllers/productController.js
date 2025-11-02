@@ -20,12 +20,12 @@ export const addProduct = async (req, res) => {
     const image3 = req.files.image3 && req.files.image3[0];
     const image4 = req.files.image4 && req.files.image4[0];
 
-    const images = [image1, image2, image3, image4].filter(
+    const image = [image1, image2, image3, image4].filter(
       (item) => item !== undefined
     );
 
-    let imagesUrl = await Promise.all(
-      images.map(async (item) => {
+    let imageUrl = await Promise.all(
+      image.map(async (item) => {
         let result = await cloudinary.uploader.upload(item.path, {
           resource_type: "image",
         });
@@ -44,7 +44,7 @@ export const addProduct = async (req, res) => {
     //   bestSeller
     // );
 
-    // console.log(images);
+    // console.log(image);
 
     const productData = {
       name,
@@ -54,7 +54,7 @@ export const addProduct = async (req, res) => {
       subCategory,
       sizes: JSON.parse(sizes),
       bestSeller: bestSeller === "true" ? true : false,
-      image: imagesUrl,
+      image: imageUrl,
       date: Date.now(),
     };
 

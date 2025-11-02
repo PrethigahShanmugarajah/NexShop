@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Title from "./Title";
 import axios from "axios";
 import { backendUrl } from "../App";
-import { notify } from "../components/ToastProvider";
+import { notify } from "./ToastProvider";
 
 const Login = ({ setToken }) => {
   const [email, setEmail] = useState("");
@@ -21,8 +21,6 @@ const Login = ({ setToken }) => {
         notify.success(response.data.message);
       } else {
         notify.error(response.data.message);
-        notify.warning(response.data.message);
-        notify.info(response.data.message);
       }
       // console.log(email, password);
       // console.log(response);

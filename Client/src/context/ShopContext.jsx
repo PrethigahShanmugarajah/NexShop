@@ -1,6 +1,6 @@
 // Client/src/context/ShopContext.jsx
 import { createContext, useEffect, useState } from "react";
-// import { products } from "../assets/assets";
+import { products } from "../assets/assets";
 import { notify } from "../components/ToastProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -20,8 +20,7 @@ const ShopContextProvider = (props) => {
 
   const addToCart = async (itemId, size) => {
     if (!size) {
-      notify.error("Select Product Size");
-
+      notify.warning("Select Product Size");
       return;
     }
 
@@ -41,17 +40,11 @@ const ShopContextProvider = (props) => {
 
     if (token) {
       try {
-        // console.log("[ShopContext] addToCart -> sending", {
-        //   itemId,
-        //   size,
-        //   token,
-        // });
         const response = await axios.post(
           backendUrl + "/api/cart/add",
           { itemId, size },
           { headers: { token } }
         );
-        // console.log("[ShopContext] addToCart response:", response.data);
 
         if (response.data && response.data.success && response.data.cartData) {
           setCartItems(response.data.cartData);
@@ -104,7 +97,7 @@ const ShopContextProvider = (props) => {
     let totalAmount = 0;
 
     for (const items in cartItems) {
-      let itemInfo = products.find((product) => product.id === parseInt(items));
+      let itemInfo = products.find((product) => product.id === items);
 
       if (!itemInfo) continue;
 
@@ -133,7 +126,6 @@ const ShopContextProvider = (props) => {
       } else {
         notify.error(response.data.message);
       }
-
       // console.log(response.data);
     } catch (error) {
       console.log(error);

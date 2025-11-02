@@ -24,7 +24,7 @@ export const placeOrder = async (req, res) => {
 
     res.json({ success: true, message: "Order Placed" });
   } catch (error) {
-    console.error("Add Product error:", error.message);
+    console.error("Placing Orders Using Cod error:", error.message);
     res.json({ success: false, message: error.message });
   }
 };
@@ -33,8 +33,8 @@ export const placeOrder = async (req, res) => {
 export const placeOrderStripe = async (req, res) => {
   try {
   } catch (error) {
-    console.error("Add Product error:", error.message);
-    res.json({ success: false, message: error.message });
+    // console.error("Add Product error:", error.message);
+    // res.json({ success: false, message: error.message });
   }
 };
 
@@ -42,8 +42,8 @@ export const placeOrderStripe = async (req, res) => {
 export const placeOrderRazorpay = async (req, res) => {
   try {
   } catch (error) {
-    console.error("Add Product error:", error.message);
-    res.json({ success: false, message: error.message });
+    // console.error("Add Product error:", error.message);
+    // res.json({ success: false, message: error.message });
   }
 };
 
@@ -51,8 +51,8 @@ export const placeOrderRazorpay = async (req, res) => {
 export const allOrders = async (req, res) => {
   try {
   } catch (error) {
-    console.error("Add Product error:", error.message);
-    res.json({ success: false, message: error.message });
+    // console.error("Add Product error:", error.message);
+    // res.json({ success: false, message: error.message });
   }
 };
 
@@ -77,7 +77,7 @@ export const userOrders = async (req, res) => {
 export const updateStatus = async (req, res) => {
   try {
   } catch (error) {
-    console.error("Add Product error:", error.message);
-    res.json({ success: false, message: error.message });
+    // console.error("Add Product error:", error.message);
+    // res.json({ success: false, message: error.message });
   }
 };

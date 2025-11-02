@@ -15,7 +15,7 @@ const List = ({ token }) => {
       });
       if (response.data.success) {
         setList(response.data.products);
-        console.log(response.data);
+        // console.log(response.data);
       } else {
         notify.error(response.data.message);
       }
@@ -39,7 +39,10 @@ const List = ({ token }) => {
       } else {
         notify.error(response.data.message);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+      notify.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -65,12 +68,21 @@ const List = ({ token }) => {
             className="grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center gap-2 py-1 px-2 border text-sm"
             key={index}
           >
-            <img className="w-12" src={item.images[0]} alt="" />
+            {/* <img className="w-12" src={item.image[0]} alt="" /> */}
+            <img
+              className="w-12"
+              src={
+                item.image && item.image.length > 0
+                  ? item.image[0]
+                  : "/placeholder.png"
+              }
+              alt={item.name || "Product Image"}
+            />
+
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>
-              {currency}
-              {item.price}
+              {currency} {item.price}
             </p>
             <p onClick={() => removeProduct(item.id)}>
               <Trash2 className="text-right md:text-center w-5 h-5 text-red-500 cursor-pointer" />

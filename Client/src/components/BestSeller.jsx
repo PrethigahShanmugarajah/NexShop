@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-// import { products } from "../assets/assets";
+import { products } from "../assets/assets";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
 import { ShopContext } from "../context/ShopContext";
@@ -9,7 +9,7 @@ const BestSeller = () => {
   const [bestSeller, SetBestSeller] = useState([]);
 
   useEffect(() => {
-    const bestProduct = products.filter((item) => item.bestseller);
+    const bestProduct = products.filter((item) => item.bestSeller);
     SetBestSeller(bestProduct.slice(0, 5));
   }, [products]);
 
@@ -31,7 +31,7 @@ const BestSeller = () => {
             key={index}
             id={item.id}
             name={item.name}
-            images={item.images}
+            image={item.image}
             price={item.price}
           />
         ))}

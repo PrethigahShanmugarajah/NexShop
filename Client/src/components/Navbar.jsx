@@ -3,6 +3,7 @@ import { assets } from "../assets/assets";
 import { Link, NavLink } from "react-router-dom";
 import { ChevronDown, Menu, Search, ShoppingBag, User } from "lucide-react";
 import { ShopContext } from "../context/ShopContext";
+import { notify } from "./ToastProvider";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
@@ -17,8 +18,11 @@ const Navbar = () => {
   } = useContext(ShopContext);
 
   const logout = () => {
+    const userName = localStorage.getItem("userName");
+    notify.success(`${userName}, logged out successfully!`);
     navigate("/login");
     localStorage.removeItem("token");
+    localStorage.removeItem("userName");
     setToken("");
     setCartItems({});
   };

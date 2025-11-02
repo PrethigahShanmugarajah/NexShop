@@ -17,7 +17,7 @@ const Add = ({ token }) => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("Men");
   const [subCategory, setSubCategory] = useState("Topwear");
-  const [bestseller, setBestSeller] = useState("");
+  const [bestSeller, setBestSeller] = useState("");
   const [sizes, setSizes] = useState([]);
 
   const onSubmitHandler = async (e) => {
@@ -34,7 +34,7 @@ const Add = ({ token }) => {
       formData.append("price", price);
       formData.append("category", category);
       formData.append("subCategory", subCategory);
-      formData.append("bestseller", bestseller);
+      formData.append("bestSeller", bestSeller);
       formData.append("sizes", JSON.stringify(sizes));
 
       image1 && formData.append("image1", image1);
@@ -43,13 +43,14 @@ const Add = ({ token }) => {
       image4 && formData.append("image4", image4);
 
       // console.log("Token being sent:", token);
+
       const response = await axios.post(
         backendUrl + "/api/product/add",
         formData,
         { headers: { token: token } }
       );
 
-      console.log(response.data);
+      // console.log(response.data);
 
       if (response.data.success) {
         notify.success(response.data.message);
@@ -66,8 +67,8 @@ const Add = ({ token }) => {
         notify.error(response.data.message);
       }
     } catch (error) {
-      console.error(error);
-      notify.error(error.response?.data?.message || "An error occurred");
+      console.log(error);
+      notify.error(error.message);
     }
   };
 
@@ -173,7 +174,7 @@ const Add = ({ token }) => {
           value={name}
           type="text"
           placeholder="Product Name"
-          className="w-full max-w-[500px] px-3 py-2 border  rounded-md outline-none focus:border-borderColor transition"
+          className="w-full max-w-[500px] px-3 py-2 border border-gray-300  rounded-md outline-none focus:border-borderColor transition  text-black placeholder-gray-300"
           required
         />
       </div>
@@ -186,7 +187,7 @@ const Add = ({ token }) => {
           type="text"
           rows={5}
           placeholder="Product Description"
-          className="w-full max-w-[500px] px-3 py-2 border rounded-md outline-none focus:border-borderColor transition"
+          className="w-full max-w-[500px] px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
           required
         />
       </div>
@@ -196,8 +197,7 @@ const Add = ({ token }) => {
           <p className="mb-2 text-black">Product Category</p>
           <select
             onChange={(e) => setCategory(e.target.value)}
-            // value={category}
-            className="w-full px-3 py-2 border rounded-md outline-none focus:border-borderColor transition"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
             required
           >
             <option value="Men">Men</option>
@@ -210,8 +210,7 @@ const Add = ({ token }) => {
           <p className="mb-2 text-black">Sub Category</p>
           <select
             onChange={(e) => setSubCategory(e.target.value)}
-            // value={subCategory}
-            className="w-full px-3 py-2 border rounded-md outline-none focus:border-borderColor transition"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
           >
             <option value="Topwear">Topwear</option>
             <option value="Bottomwear">Bottomwear</option>
@@ -226,7 +225,7 @@ const Add = ({ token }) => {
             value={price}
             type="number"
             placeholder="LKR 100"
-            className="w-full px-3 py-2 sm:w-[120px] border rounded-md outline-none focus:border-borderColor transition"
+            className="w-full px-3 py-2 sm:w-[120px] border border-gray-300 rounded-md outline-none focus:border-borderColor transition text-black placeholder-gray-300"
             required
           />
         </div>
@@ -366,19 +365,19 @@ const Add = ({ token }) => {
       <div className="flex gap-2 mt-2">
         <input
           onChange={() => setBestSeller((prev) => !prev)}
-          checked={bestseller}
+          checked={bestSeller}
           type="checkbox"
-          id="bestseller"
+          id="bestSeller"
           className="cursor-pointer"
         />
-        <label className="cursor-pointer" htmlFor="bestseller">
+        <label className="cursor-pointer text-black" htmlFor="bestSeller">
           Add to bestseller
         </label>
       </div>
 
       <button
         type="submit"
-        className="bg-primary hover:bg-primary-dull  w-28 py-3 mt-4 text-white cursor-pointer"
+        className="bg-primary hover:bg-primary-dull  w-28 py-3 mt-4 text-white cursor-pointer rounded-full"
       >
         Add
       </button>

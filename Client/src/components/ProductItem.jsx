@@ -2,16 +2,16 @@ import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 
-const ProductItem = ({ id, images, name, price }) => {
+const ProductItem = ({ id, image, name, price }) => {
   const { currency } = useContext(ShopContext);
 
   return (
     <Link className="text-black cursor-pointer" to={`/product/${id}`}>
       <div className="overflow-hidden">
-        {images && images.length > 0 ? (
+        {image && image.length > 0 ? (
           <img
             className="hover:scale-110 transition ease-in-out w-full h-48 object-cover"
-            src={images[0]}
+            src={image[0]}
             alt={name || "Product image"}
           />
         ) : (
