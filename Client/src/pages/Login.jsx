@@ -57,7 +57,8 @@ const Login = () => {
         }
       }
     } catch (error) {
-      alert(error.message);
+      console.log(error);
+      notify.error(error.message);
     }
   };
 
@@ -66,10 +67,6 @@ const Login = () => {
       navigate("/");
     }
   }, [token]);
-
-  // const handleForgotPassword = () => {
-  //   alert("Redirect to Forgot Password page");
-  // };
 
   const validatePassword = (event) => {
     const password = event.target.form.password.value;
@@ -187,7 +184,7 @@ const Login = () => {
         )}
       </div>
 
-      <button className="bg-primary hover:bg-primary-dull text-white font-light px-8 py-2 mt-4 cursor-pointer hover:rounded-full">
+      <button className="bg-primary hover:bg-primary-dull text-white font-light px-8 py-2 mt-4 cursor-pointer rounded-md hover:rounded-full">
         {currentState === "Login" ? "Sign In" : "Sign Up"}
       </button>
     </form>

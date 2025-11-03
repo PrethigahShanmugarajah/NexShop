@@ -56,20 +56,16 @@ const Navbar = () => {
       </ul>
 
       <div className="flex items-center gap-6">
-        {/* <img src={assets.search_icon} className="w-5 cursor-pointer" alt="Search"/> */}
         <Search
           className="w-5 cursor-pointer text-black"
           onClick={() => setShowSearch(true)}
         />
 
         <div className="group relative">
-          {/* <img src={assets.profile_icon} className="w-5 cursor-pointer" alt="Profile"/> */}
-          {/* <Link to="/login"> */}
           <User
             onClick={() => (token ? null : navigate("/login"))}
             className="w-5 cursor-pointer text-black"
           />
-          {/* </Link> */}
 
           {/* ---------------- DROP DOWN MENU ---------------- */}
           {token && (
@@ -93,7 +89,6 @@ const Navbar = () => {
         </div>
 
         <Link to="/cart" className="relative">
-          {/* <img src={assets.cart_icon} className="w-5 min-w-5" alt="Cart" /> */}
           <ShoppingBag className="w-5 min-w-5 text-black cursor-pointer" />
 
           <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-primary text-white aspect-square rounded-full text-[8px]">
@@ -101,7 +96,6 @@ const Navbar = () => {
           </p>
         </Link>
 
-        {/* <img onClick={() => setVisible(true)} src={assets.menu_icon} className="w-5 cursor-pointer sm:hidden" alt="Menu Icon"/> */}
         <Menu
           onClick={() => setVisible(true)}
           className="w-5 cursor-pointer sm:hidden text-black"
@@ -119,7 +113,6 @@ const Navbar = () => {
             onClick={() => setVisible(false)}
             className="flex items-center gap-4 p-3 cursor-pointer"
           >
-            {/* <img src={assets.dropdown_icon} className="h-4 rotate-180" alt="" /> */}
             <ChevronDown className="h-4 rotate-90 text-black" />
 
             <p>Back</p>

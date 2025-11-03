@@ -65,7 +65,7 @@ const Login = ({ setToken }) => {
 
           <button
             type="submit"
-            className="bg-primary hover:bg-primary-dull mt-2 w-full py-2 px-4 rounded-md text-white cursor-pointer"
+            className="bg-primary hover:bg-primary-dull mt-2 w-full py-2 px-4 text-white cursor-pointer rounded-md hover:rounded-full"
           >
             Login
           </button>

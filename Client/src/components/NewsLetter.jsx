@@ -18,18 +18,18 @@ const NewsLetter = () => {
 
       <form
         onSubmit={onSubmitHandler}
-        className="w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 border pl-3 border-borderColor"
+        className="w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 border pl-3 border-borderColor rounded-md hover:rounded-full"
       >
         <input
           type="email"
           placeholder="Enter you email"
-          className="w-full sm:flex-1 outline-none"
+          className="w-full sm:flex-1 outline-none placeholder-gray-300"
           required
         />
 
         <button
           type="submit"
-          className="bg-primary hover:bg-primary-dull text-white text-xs px-10 py-4 uppercase cursor-pointer"
+          className="bg-primary hover:bg-primary-dull text-white text-xs px-10 py-4 uppercase cursor-pointer rounded-md  hover:rounded-full"
         >
           Subscribe
         </button>

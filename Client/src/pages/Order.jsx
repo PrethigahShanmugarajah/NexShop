@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
-import { products } from "../assets/assets";
 import Title from "../components/Title";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -23,7 +22,7 @@ const Order = () => {
         {},
         { headers: { token } }
       );
-      console.log(response.data);
+      // console.log(response.data);
 
       if (response.data.success) {
         let allOrdersItem = [];
@@ -39,7 +38,10 @@ const Order = () => {
         setOrderData(allOrdersItem.reverse());
         // console.log(allOrdersItem);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      notify.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -70,11 +72,19 @@ const Order = () => {
 
                 <div className="flex items-center gap-3 mt-1 text-base text-gray-700">
                   {/* <p className="text-lg"> */}
-                  <p>
+                  <p className="text-xs">
                     {currency} {item.price}
                   </p>
 
+                  {/* <p>
+                    {currency} {item.totalAmount}
+                  </p> */}
+
                   <p>Quantity: {item.quantity}</p>
+
+                  <p>
+                    Total: {currency} {item.totalAmount}
+                  </p>
 
                   <p>Size: {item.size}</p>
                 </div>

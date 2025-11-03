@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { assets } from "../assets/assets";
 import { ImagePlus } from "lucide-react";
 import axios from "axios";
 import { backendUrl } from "../App";
@@ -80,12 +79,10 @@ const Add = ({ token }) => {
       <div>
         <Title className="mb-2" text1={"Add"} text2={"Products"} />
 
-        <p className="mb-2">Upload Image</p>
+        <p className="mb-2 text-black">Upload Image</p>
 
         <div className="flex gap-2 ">
           <label htmlFor="image1">
-            {/* <img className="w-20 cursor-pointer" src={!image1 ? assets.upload_area : URL.createObjectURL(image1)} alt=""/> */}
-
             {!image1 ? (
               <ImagePlus className="w-20 h-20 text-gray-400 cursor-pointer" />
             ) : (
@@ -105,8 +102,6 @@ const Add = ({ token }) => {
           </label>
 
           <label htmlFor="image2">
-            {/* <img className="w-20 cursor-pointer" src={!image2 ? assets.upload_area : URL.createObjectURL(image2)} alt="" /> */}
-
             {!image2 ? (
               <ImagePlus className="w-20 h-20 text-gray-400 cursor-pointer" />
             ) : (
@@ -126,7 +121,6 @@ const Add = ({ token }) => {
           </label>
 
           <label htmlFor="image3">
-            {/* <img className="w-20 cursor-pointer" src={!image3 ? assets.upload_area : URL.createObjectURL(image3)} alt=""/> */}
             {!image3 ? (
               <ImagePlus className="w-20 h-20 text-gray-400 cursor-pointer" />
             ) : (
@@ -146,7 +140,6 @@ const Add = ({ token }) => {
           </label>
 
           <label htmlFor="image4">
-            {/* <img className="w-20 cursor-pointer" src={!image4 ? assets.upload_area : URL.createObjectURL(image4)} alt=""/> */}
             {!image4 ? (
               <ImagePlus className="w-20 h-20 text-gray-400 cursor-pointer" />
             ) : (
@@ -377,7 +370,7 @@ const Add = ({ token }) => {
 
       <button
         type="submit"
-        className="bg-primary hover:bg-primary-dull  w-28 py-3 mt-4 text-white cursor-pointer rounded-full"
+        className="bg-primary hover:bg-primary-dull  w-28 py-3 mt-4 text-white cursor-pointer rounded-md hover:rounded-full"
       >
         Add
       </button>

@@ -1,6 +1,5 @@
 // Client/src/context/ShopContext.jsx
 import { createContext, useEffect, useState } from "react";
-import { products } from "../assets/assets";
 import { notify } from "../components/ToastProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -9,7 +8,6 @@ export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
   const currency = import.meta.env.VITE_CURRENCY;
-  // const delivery_fee = 10;
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
@@ -66,7 +64,10 @@ const ShopContextProvider = (props) => {
           if (cartItems[items][item] > 0) {
             totalCount += cartItems[items][item];
           }
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+          notify.error(error.message);
+        }
       }
     }
     return totalCount;
@@ -106,7 +107,10 @@ const ShopContextProvider = (props) => {
           if (cartItems[items][item] > 0) {
             totalAmount += parseFloat(itemInfo.price) * cartItems[items][item];
           }
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+          notify.error(error.message);
+        }
       }
     }
     return totalAmount;
@@ -168,7 +172,6 @@ const ShopContextProvider = (props) => {
   const value = {
     products,
     currency,
-    // delivery_fee,
     search,
     setSearch,
     showSearch,

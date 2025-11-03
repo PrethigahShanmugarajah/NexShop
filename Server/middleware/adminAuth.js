@@ -1,4 +1,3 @@
-// Server/middleware/adminAuth.js
 import jwt from "jsonwebtoken";
 
 const adminAuth = async (req, res, next) => {
@@ -26,9 +25,6 @@ const adminAuth = async (req, res, next) => {
 
     next();
   } catch (error) {
-    // console.log(error);
-    // res.json({ success: false, message: error.message });
-
     console.error("Admin Auth error:", error.message);
 
     // res.json({

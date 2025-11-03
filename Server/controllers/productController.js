@@ -1,4 +1,3 @@
-// Server/controllers/productController.js
 import { v2 as cloudinary } from "cloudinary";
 import productModel from "../models/productModel.js";
 
@@ -106,7 +105,6 @@ export const listProducts = async (req, res) => {
   try {
     const products = await productModel.find({});
 
-    // Calculate total counts
     const totalProducts = products.length;
     const totalByCategory = {};
     const totalBySubCategory = {};

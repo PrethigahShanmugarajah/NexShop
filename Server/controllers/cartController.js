@@ -1,4 +1,3 @@
-// Server / controllers / cartController.js;
 import userModel from "../models/userModel.js";
 import productModel from "../models/productModel.js";
 import jwt from "jsonwebtoken";

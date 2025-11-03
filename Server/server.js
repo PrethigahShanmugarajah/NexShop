@@ -1,8 +1,6 @@
-// Server/server.js
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
-// import { connectDB } from "./config/db.js";
 import connectDB from "./config/mongodb.js";
 import connectCloudinary from "./config/cloudinary.js";
 import userRouter from "./routes/userRoute.js";

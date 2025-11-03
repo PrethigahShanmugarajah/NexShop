@@ -1,8 +1,6 @@
-// Client/src/components/LatestCollection
 import React, { useContext, useEffect, useState } from "react";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
-// import { products } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
 
 const LatestCollection = () => {

@@ -1,9 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  assets,
-  //  products
-} from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
 import { Star } from "lucide-react";
 import RelatedProducts from "../components/RelatedProducts";
@@ -58,11 +54,6 @@ const Product = () => {
           <h1 className="font-medium text-2xl mt-2">{productData.name}</h1>
 
           <div className="flex items-center gap-1 mt-2">
-            {/* <img src={assets.star_icon} alt="" className="w-3.5" />
-            <img src={assets.star_icon} alt="" className="w-3.5" />
-            <img src={assets.star_icon} alt="" className="w-3.5" />
-            <img src={assets.star_icon} alt="" className="w-3.5" />
-            <img src={assets.star_dull_icon} alt="" className="w-3.5" /> */}
             <Star className="w-4 h-4 text-primary fill-current" />
             <Star className="w-4 h-4 text-primary fill-current" />
             <Star className="w-4 h-4 text-primary fill-current" />

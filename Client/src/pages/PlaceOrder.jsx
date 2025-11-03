@@ -41,25 +41,56 @@ const PlaceOrder = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
 
+    // console.log("Cart Items:", cartItems);
+    // console.log("Available Products:", products);
+
     try {
       let orderItems = [];
 
-      // console.log("[PlaceOrder] cartItems:", cartItems);
-      // console.log("[PlaceOrder] products:", products);
+      for (const productId in cartItems) {
+        for (const size in cartItems[productId]) {
+          const quantity = cartItems[productId][size];
 
-      for (const items in cartItems) {
-        for (const item in cartItems[items]) {
-          if (!(cartItems[items][item] > 0)) continue;
+          if (quantity > 0) {
+            let productInfo = products.find(
+              (product) => product.id === productId
+            );
 
-          const itemInfo = structuredClone(
-            products.find((product) => product.id === parseInt(items))
-          );
-          if (itemInfo) {
-            itemInfo.size = item;
-            itemInfo.quantity = cartItems[items][item];
-            orderItems.push(itemInfo);
+            if (!productInfo) {
+              productInfo = products.find(
+                (product) => product.id === parseInt(productId)
+              );
+            }
+
+            if (!productInfo) {
+              productInfo = products.find(
+                (product) => String(product.id) === String(productId)
+              );
+            }
+
+            if (productInfo) {
+              // console.log(
+              //   `Found product: ${productInfo.name}, Size: ${size}, Quantity: ${quantity}`
+              // );
+              orderItems.push({
+                ...productInfo,
+                size: size,
+                quantity: quantity,
+              });
+            } else {
+              // console.log(
+              //   `Product not found for ID: ${productId}, Type: ${typeof productId}`
+              // );
+            }
           }
         }
+      }
+
+      // console.log("Order Items:", orderItems);
+
+      if (orderItems.length === 0) {
+        notify.error("No valid items found in cart");
+        return;
       }
 
       let orderData = {
@@ -67,6 +98,9 @@ const PlaceOrder = () => {
         items: orderItems,
         amount: getCartAmount() + getDeliveryFee(),
       };
+
+      // console.log("Final order items:", orderItems);
+      // console.log("Order data to send:", orderData);
 
       switch (method) {
         /* -------- API CALL FOR COD -------- */
@@ -83,19 +117,34 @@ const PlaceOrder = () => {
           } else {
             notify.error(response.data.message);
           }
-      }
-      console.log(orderItems);
-      notify.error(error.message);
-    } catch (error) {}
-  };
+          break;
 
-  // const bankAccounts = [
-  //   { name: "Bank of Ceylon", account: "123-456-7890" },
-  //   { name: "Commercial Bank", account: "234-567-8901" },
-  //   { name: "Sampath Bank", account: "345-678-9012" },
-  //   { name: "Hatton National Bank", account: "456-789-0123" },
-  //   { name: "Peoples Bank", account: "567-890-1234" },
-  // ];
+        /* -------- API CALL FOR STRIPE -------- */
+
+        case "stripe":
+          const responseStripe = await axios.post(
+            backendUrl + "/api/order/stripe",
+            orderData,
+            { headers: { token } }
+          );
+
+          if (responseStripe.data.success) {
+            const { session_url } = responseStripe.data;
+            window.location.replace(session_url);
+          } else {
+            notify.error(responseStripe.data.message);
+          }
+          break;
+        /* -------- API CALL FOR COD -------- */
+
+        default:
+          notify.warning("Please select a payment method");
+      }
+    } catch (error) {
+      console.error("Order placement error:", error);
+      notify.error(error.message);
+    }
+  };
 
   return (
     <form
@@ -228,7 +277,7 @@ const PlaceOrder = () => {
               <img src={assets.stripe_logo} alt="" className="h-5 mx-4" />
             </div>
 
-            <div
+            {/* <div
               onClick={() => setMethod("razorpay")}
               className="flex items-center gap-3 border border-borderColor p-2 px-3 cursor-pointer"
             >
@@ -239,7 +288,7 @@ const PlaceOrder = () => {
               ></p>
 
               <img src={assets.razorpay_logo} alt="" className="h-5 mx-4" />
-            </div>
+            </div> */}
 
             <div
               onClick={() => setMethod("cod")}
@@ -256,55 +305,6 @@ const PlaceOrder = () => {
               </p>
             </div>
           </div>
-
-          {/* -------- PAYMENT METHOD SELECTION -------- */}
-          {/* <div className="flex flex-col gap-4 mt-4">
-            <div className="flex gap-3 flex-col lg:flex-row">
-              <div
-                onClick={() => setMethod("bank")}
-                className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
-              >
-                <p
-                  className={`min-w-3.5 h-3.5 border rounded-full ${
-                    method === "bank" ? "bg-primary" : ""
-                  }`}
-                ></p>
-                <p className="text-gray-500 text-sm font-medium mx-4 uppercase">
-                  Bank Transfer
-                </p>
-              </div>
-
-              <div
-                onClick={() => setMethod("cod")}
-                className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
-              >
-                <p
-                  className={`min-w-3.5 h-3.5 border rounded-full ${
-                    method === "cod" ? "bg-primary" : ""
-                  }`}
-                ></p>
-                <p className="text-gray-500 text-sm font-medium mx-4 uppercase">
-                  Cash On Delivery
-                </p>
-              </div>
-            </div>
-
-            {method === "bank" && (
-              <div className="border p-3 mt-2 flex flex-col gap-1 text-gray-600 text-sm">
-                {bankAccounts.map((bank, idx) => (
-                  <p key={idx}>
-                    {bank.name} - A/C: {bank.account}
-                  </p>
-                ))}
-              </div>
-            )}
-
-            {method === "cod" && (
-              <div className="border p-3 mt-2 text-gray-600">
-                <p>Pay with cash upon delivery of your order.</p>
-              </div>
-            )}
-          </div> */}
 
           <div className="w-full text-end mt-8">
             <button

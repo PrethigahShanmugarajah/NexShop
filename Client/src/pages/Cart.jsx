@@ -1,9 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
-import {
-  assets,
-  // products
-} from "../assets/assets";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
 import { Trash2 } from "lucide-react";
@@ -87,7 +83,6 @@ const Cart = () => {
                 className="border border-borderColor max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
               />
 
-              {/* <img onClick={() => updateQuanity(item._id, item.size, 0)} src={assets.bin_icon} alt="Delete" className="w-4 mr-4 sm:w-5 cursor-pointer"/> */}
               <Trash2
                 onClick={() => updateQuanity(item.id, item.size, 0)}
                 className="w-5 h-5 mr-4 sm:w-6 sm:h-6 cursor-pointer text-red-500 hover:text-red-600 transition-colors"
@@ -104,7 +99,7 @@ const Cart = () => {
           <div className="w-full text-end">
             <button
               onClick={() => navigate("/place-order")}
-              className="bg-primary hover:bg-primary-dull text-white text-sm my-8 px-8 py-3 cursor-pointer uppercase hover:rounded-full"
+              className="bg-primary hover:bg-primary-dull text-white text-sm my-8 px-8 py-3 cursor-pointer uppercase rounded-md hover:rounded-full"
             >
               Proceed to checkout
             </button>

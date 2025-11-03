@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { assets } from "../assets/assets";
 import { List, PlusCircle, ShoppingCart } from "lucide-react";
 
 const Sidebar = () => {
@@ -13,22 +12,18 @@ const Sidebar = () => {
     <div className="w-[18%] min-h-screen border-r border-r-borderColor">
       <div className="flex flex-col gap-4 pt-6 pl-[20%] text-[15px]">
         <NavLink to="/add" className={linkClass}>
-          {/* <img src={assets.add_icon} alt="" className="w-5 h-5" />
-           */}
           <PlusCircle className="w-5 h-5 text-primary" />
 
           <p className="hidden md:block">Add Items</p>
         </NavLink>
 
         <NavLink to="/list" className={linkClass}>
-          {/* <img src={assets.order_icon} alt="" className="w-5 h-5" /> */}
           <List className="w-5 h-5 text-primary" />
 
           <p className="hidden md:block">List Items</p>
         </NavLink>
 
         <NavLink to="/orders" className={linkClass}>
-          {/* <img src={assets.order_icon} alt="" className="w-5 h-5" /> */}
           <ShoppingCart className="w-5 h-5 text-primary" />
 
           <p className="hidden md:block">Orders</p>

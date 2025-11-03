@@ -21,6 +21,7 @@ export const notify = {
         fontWeight: 500,
         fontSize: "16px",
       },
+      // icon: false,
     }),
   error: (msg) =>
     toast.error(msg, {

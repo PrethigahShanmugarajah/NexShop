@@ -1,9 +1,4 @@
-// Client/src/pages/Collection
 import React, { useContext, useEffect, useState } from "react";
-import {
-  assets,
-  // products
-} from "../assets/assets";
 import { ChevronRight } from "lucide-react";
 import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
@@ -104,7 +99,6 @@ const Collection = () => {
           className="my-2 text-xl flex items-center cursor-pointer gap-2 uppercase "
         >
           Filters{" "}
-          {/* <img src={assets.dropdown_icon}  alt="Dropdown" className={`h-3 sm:hidden ${showFilter ? "rotate-90" : ""}`}/> */}
           <ChevronRight
             className={`h-4 w-4 text-black sm:hidden transition-transform duration-300 ${
               showFilter ? "rotate-90" : ""

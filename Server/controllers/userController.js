@@ -1,4 +1,3 @@
-// Server/controllers/userController.js
 import validator from "validator";
 import userModel from "../models/userModel.js";
 import bcrypt from "bcrypt";
@@ -103,7 +102,6 @@ export const registerUser = async (req, res) => {
   try {
     const { name, email, password, confirmPassword } = req.body;
 
-    // Check if all required fields are provided
     if (!name || !email || !password || !confirmPassword) {
       return res.json({
         success: false,
@@ -111,7 +109,6 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    // Check if user already exists
     const exists = await userModel.findOne({ email });
     if (exists) {
       return res.json({
@@ -121,7 +118,6 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    // Validate email format
     if (!validator.isEmail(email)) {
       return res.json({
         success: false,
@@ -129,7 +125,6 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    // Check if passwords match
     if (password !== confirmPassword) {
       return res.json({
         success: false,
@@ -137,7 +132,6 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    // Validate password
     const passwordValidation = validatePassword(password);
     if (!passwordValidation.isValid) {
       return res.json({
@@ -146,11 +140,9 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create new user
     const newUser = new userModel({
       name,
       email,
@@ -161,7 +153,6 @@ export const registerUser = async (req, res) => {
 
     const token = createToken(user._id);
 
-    // User object without sensitive info
     const userResponse = {
       id: user._id,
       name: user.name,
