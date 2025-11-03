@@ -81,14 +81,22 @@ npm run dev
 
 ---
 
-## Author
+## GitHub Repository
 
-**Prethigah Shanmugarajah**
-Software Engineering Undergraduate
-Sabaragamuwa University of Sri Lanka
+[https://github.com/PrethigahShanmugarajah/NexShop](https://github.com/PrethigahShanmugarajah/NexShop.git)
 
 ---
 
-## GitHub Repository
+## References
 
-[https://github.com/PrethigahShanmugarajah/NexShop](https://github.com/PrethigahShanmugarajah/NexShop)
+This project is based on the YouTube tutorial:
+[Full Stack E-commerce Website (MERN Stack) | Complete React JS Project](https://youtu.be/7E6um7NGmeE?si=6p8W769YLuH4D3hD)
+
+---
+
+## Author
+
+**Prethigah Shanmugarajah (2020/2021)**
+Department of Software Engineering
+Faculty of Computing
+Sabaragamuwa University of Sri Lanka
